@@ -5,16 +5,16 @@ TextEditingController timeCtl = TextEditingController();
 TextEditingController timeCtl2 = TextEditingController();
 
 void main() => runApp(
-    const MaterialApp(debugShowCheckedModeBanner: false, home: halamanMobil()));
+    const MaterialApp(debugShowCheckedModeBanner: false, home: HalamanMobil()));
 
-class halamanMobil extends StatefulWidget {
-  const halamanMobil({Key? key}) : super(key: key);
+class HalamanMobil extends StatefulWidget {
+  const HalamanMobil({Key? key}) : super(key: key);
 
   @override
   _halamanMobil createState() => _halamanMobil();
 }
 
-class _halamanMobil extends State<halamanMobil> {
+class _halamanMobil extends State<HalamanMobil> {
   String dropdownvalue = 'Pilih Tipe Mobil';
 
   // List of items in our dropdown menu

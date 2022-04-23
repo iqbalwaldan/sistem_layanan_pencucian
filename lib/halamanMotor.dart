@@ -4,17 +4,17 @@ import 'package:sistem_layanan_pencucian/status.dart';
 TextEditingController timeCtl = TextEditingController();
 TextEditingController timeCtl2 = TextEditingController();
 
-void main() =>
-    runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: Motor()));
+void main() => runApp(
+    const MaterialApp(debugShowCheckedModeBanner: false, home: HalamanMotor()));
 
-class Motor extends StatefulWidget {
-  const Motor({Key? key}) : super(key: key);
+class HalamanMotor extends StatefulWidget {
+  const HalamanMotor({Key? key}) : super(key: key);
 
   @override
   _motor createState() => _motor();
 }
 
-class _motor extends State<Motor> {
+class _motor extends State<HalamanMotor> {
   String dropdownvalue = 'Pilih Tipe Motor';
 
   // List of items in our dropdown menu
