@@ -51,32 +51,26 @@ class _halamanMobil extends State<halamanMobil> {
           child: Column(
             children: [
               Container(
-                alignment: Alignment.center,
+                width: double.infinity,
                 margin: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black38),
-                    borderRadius: BorderRadius.circular(5.0)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButtonFormField(
-                        value: dropdownvalue,
-                        items: items.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Tipe Mobil',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  value: dropdownvalue,
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
                 ),
               ),
               Container(
