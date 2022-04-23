@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Pencucian",
+          "Cuciin Aja!",
           style: TextStyle(
               color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
         ),
@@ -71,10 +71,31 @@ StaggeredGrid buildGrid() {
         crossAxisCellCount: 1,
         mainAxisCellCount: 1.3,
         child: TaskGroupContainer(
+          color: Colors.green,
+          icon: Icons.notifications_rounded,
+          // taskCount: 2,
+          taskGroup: "Status",
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 1,
+        mainAxisCellCount: 1,
+        child: TaskGroupContainer(
           color: Colors.pink,
           icon: Icons.car_repair,
           // taskCount: 10,
           taskGroup: "Mobil",
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 1,
+        mainAxisCellCount: 1.3,
+        child: TaskGroupContainer(
+          color: Colors.blue,
+          // isSmall: true,
+          icon: Icons.wallet_giftcard,
+          // taskCount: 9,
+          taskGroup: "Karpet",
         ),
       ),
       StaggeredGridTile.count(
@@ -90,23 +111,24 @@ StaggeredGrid buildGrid() {
       ),
       StaggeredGridTile.count(
         crossAxisCellCount: 1,
-        mainAxisCellCount: 1.3,
+        mainAxisCellCount: 1,
         child: TaskGroupContainer(
-          color: Colors.green,
-          icon: Icons.notifications_rounded,
-          // taskCount: 2,
-          taskGroup: "Status",
+          color: Colors.deepOrange,
+          // isSmall: true,
+          icon: Icons.money_off_csred_outlined,
+          // taskCount: 9,
+          taskGroup: "Laporan Keuangan",
         ),
       ),
       StaggeredGridTile.count(
         crossAxisCellCount: 1,
         mainAxisCellCount: 1,
         child: TaskGroupContainer(
-          color: Colors.blue,
+          color: Colors.indigo,
           // isSmall: true,
-          icon: Icons.wallet_giftcard,
+          icon: Icons.auto_graph_sharp,
           // taskCount: 9,
-          taskGroup: "Karpet",
+          taskGroup: "Laporan Kinerja",
         ),
       ),
     ],
