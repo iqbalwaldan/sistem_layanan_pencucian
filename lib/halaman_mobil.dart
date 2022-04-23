@@ -101,13 +101,13 @@ class _halamanMobil extends State<halamanMobil> {
                 margin: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: "No Pelanggan",
+                    labelText: "Nama Pelanggan",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'No Pelanggan tidak boleh kosong';
+                      return 'Nama Pelanggan tidak boleh kosong';
                     }
                     return null;
                   },
@@ -135,13 +135,30 @@ class _halamanMobil extends State<halamanMobil> {
                 margin: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: "No Pegawai 2",
+                    labelText: "Nama Pegawai 1",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'No Pegawai tidak boleh kosong';
+                      return 'Nama Pegawai tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Nama Pegawai 2",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Nama Pegawai tidak boleh kosong';
                     }
                     return null;
                   },
