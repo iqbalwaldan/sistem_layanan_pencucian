@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const status());
+  runApp(const Status());
 }
 
-class status extends StatelessWidget {
-  const status({Key? key}) : super(key: key);
+class Status extends StatelessWidget {
+  const Status({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

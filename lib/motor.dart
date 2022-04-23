@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sistem_layanan_pencucian/status.dart';
 
 TextEditingController timeCtl = TextEditingController();
 TextEditingController timeCtl2 = TextEditingController();
@@ -239,7 +240,7 @@ class _motor extends State<Motor> {
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: const Color.fromARGB(255, 133, 128, 126),
-                      fixedSize: const Size(445, 40),
+                      minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -247,7 +248,7 @@ class _motor extends State<Motor> {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Motor(),
+                        builder: (context) => const Status(),
                       ),
                     ),
                   ),
