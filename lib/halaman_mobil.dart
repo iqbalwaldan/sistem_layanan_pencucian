@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sistem_layanan_pencucian/status.dart';
 
 TextEditingController timeCtl = TextEditingController();
 TextEditingController timeCtl2 = TextEditingController();
@@ -229,7 +230,7 @@ class _halamanMobil extends State<halamanMobil> {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const halamanMobil(),
+                      builder: (context) => const status(),
                     ),
                   ),
                 ),
