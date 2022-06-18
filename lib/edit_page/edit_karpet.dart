@@ -1,44 +1,104 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sistem_layanan_pencucian/services/firestore.dart';
 import 'package:sistem_layanan_pencucian/status.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 
-import 'services/firestore.dart';
+// void main() => runApp(const MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: HalamanKarpet(),
+//       localizationsDelegates: [
+//         GlobalWidgetsLocalizations.delegate,
+//         GlobalMaterialLocalizations.delegate,
+//         GlobalCupertinoLocalizations.delegate,
+//       ],
+//       supportedLocales: [Locale('en', 'US')],
+//     ));
 
-void main() => runApp(
-    const MaterialApp(debugShowCheckedModeBanner: false, home: HalamanMobil()));
-
-class HalamanMobil extends StatefulWidget {
-  const HalamanMobil({Key? key}) : super(key: key);
-
+class EditHalamanKarpet extends StatefulWidget {
+  const EditHalamanKarpet(
+      {Key? key,
+      required this.docId,
+      required this.nama_pelanggan,
+      required this.noHp,
+      required this.noCucian,
+      required this.status,
+      // required this.total,
+      // required this.diskon,
+      required this.layanan,
+      required this.namaPegawai1,
+      required this.namaPegawai2,
+      required this.mulai,
+      required this.selesai,
+      required this.panjang,
+      required this.lebar})
+      : super(key: key);
+  final String docId;
+  final String nama_pelanggan;
+  final String noHp;
+  final String noCucian;
+  final String status;
+  // final String total;
+  // final String diskon;
+  final String layanan;
+  final String namaPegawai1;
+  final String namaPegawai2;
+  final String mulai;
+  final String selesai;
+  final String panjang;
+  final String lebar;
   @override
-  _halamanMobil createState() => _halamanMobil();
+  _halamanEditKarpet createState() => _halamanEditKarpet();
 }
 
-class _halamanMobil extends State<HalamanMobil> {
-  final TextEditingController timeCtl = TextEditingController();
-  final TextEditingController timeCtl2 = TextEditingController();
-  final noPlat = TextEditingController();
+class _halamanEditKarpet extends State<EditHalamanKarpet> {
+  // final timeCtl = TextEditingController();
+  // final timeCtl2 = TextEditingController();
+  final noCucian = TextEditingController();
+  final panjang = TextEditingController();
+  final lebar = TextEditingController();
   final namaPelanggan = TextEditingController();
   final noHp = TextEditingController();
   final namaPegawai1 = TextEditingController();
   final namaPegawai2 = TextEditingController();
   final status = TextEditingController();
   final code = TextEditingController();
-  final diskon = TextEditingController();
-  final harga = TextEditingController();
-
+  var dropdownvalue;
+  late TextEditingController _controllerIn;
+  late TextEditingController _controllerOut;
   FirestoreHelper fh = FirestoreHelper();
 
-  // ignore: prefer_typing_uninitialized_variables
-  var dropdownvalue;
-  var price;
+  String _valueChangedIn = '';
+  String _valueToValidateIn = '';
+  String _valueSavedIn = '';
+  String _valueChangedOut = '';
+  String _valueToValidateOut = '';
+  String _valueSavedOut = '';
+
+  @override
+  void initState() {
+    super.initState();
+    Intl.defaultLocale = 'pt_BR';
+    //_initialValue = DateTime.now().toString();
+    _controllerIn = TextEditingController(text: DateTime.now().toString());
+    _controllerOut = TextEditingController(text: DateTime.now().toString());
+
+    _getValue();
+  }
+
+  Future<void> _getValue() async {
+    await Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        //_initialValue = '2000-10-22 14:30';
+        _controllerIn.text = '';
+        _controllerOut.text = '';
+      });
+    });
+  }
 
   // List of items in our dropdown menu
-  var items = [
-    'Pilih Tipe Mobil',
-    'Keluarga',
-    'Off Road',
-  ];
+  var items = ['Pilih Tipe Karpet', 'Dasar', 'Masjid', 'Permadani', 'Tikar'];
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -55,22 +115,22 @@ class _halamanMobil extends State<HalamanMobil> {
           icon: const Icon(Icons.arrow_back_outlined),
         ),
         title: const Text(
-          "Cuci Mobil",
+          "Cuci Karpet",
           style: TextStyle(
               color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
         ),
       ),
-      body: ListView(children: [
-        Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
+      body: ListView(
+        children: [
+          Form(
+            key: _formKey,
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('mobil')
+                        .collection('layanan')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (!snapshot.hasData) {
@@ -93,7 +153,7 @@ class _halamanMobil extends State<HalamanMobil> {
                           margin: const EdgeInsets.all(8.0),
                           child: DropdownButtonFormField(
                             decoration: InputDecoration(
-                              labelText: 'Tipe Mobil',
+                              labelText: 'Tipe Karpet',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                             ),
@@ -131,18 +191,62 @@ class _halamanMobil extends State<HalamanMobil> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      controller: noPlat,
+                      controller: noCucian,
                       decoration: InputDecoration(
-                        labelText: "No Plat Kendaraan",
+                        labelText: "No Cucian",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'No Plat Kendaraan tidak boleh kosong';
+                          return 'No Cucian tidak boleh kosong';
                         }
                         return null;
                       },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: TextFormField(
+                            controller: panjang,
+                            decoration: InputDecoration(
+                              labelText: "Panjang",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Panjang tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: TextFormField(
+                            controller: lebar,
+                            decoration: InputDecoration(
+                              labelText: "Lebar",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Lebar tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
@@ -218,66 +322,56 @@ class _halamanMobil extends State<HalamanMobil> {
                     ),
                   ),
                   Container(
-                    alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: timeCtl, // add this line.
+                    child: DateTimePicker(
+                      type: DateTimePickerType.date,
+                      dateMask: 'dd/MM/yyyy',
+                      controller: _controllerIn,
+                      //initialValue: _initialValue,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                      // icon: Icon(Icons.event),
                       decoration: InputDecoration(
-                        labelText: 'Jam Mulai',
+                        labelText: "Tanggal Masuk",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)),
                       ),
-                      onTap: () async {
-                        TimeOfDay time = TimeOfDay.now();
-                        FocusScope.of(context).requestFocus(new FocusNode());
-
-                        TimeOfDay? picked = await showTimePicker(
-                            context: context, initialTime: time);
-                        if (picked != null && picked != time) {
-                          timeCtl.text = picked.format(context);
-                          setState(() {
-                            time = picked;
-                          });
-                        }
-                      },
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'tidak boleh kosong';
-                        }
+                      dateLabelText: 'Date',
+                      locale: Locale('en'),
+                      onChanged: (val) => setState(() => _valueChangedIn = val),
+                      validator: (val) {
+                        setState(() => _valueToValidateIn = val ?? '');
                         return null;
                       },
+                      onSaved: (val) =>
+                          setState(() => _valueSavedIn = val ?? ''),
                     ),
                   ),
                   Container(
-                    alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: timeCtl2, // add this line.
+                    child: DateTimePicker(
+                      type: DateTimePickerType.date,
+                      dateMask: 'dd/MM/yyyy',
+                      controller: _controllerOut,
+                      //initialValue: _initialValue,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                      // icon: Icon(Icons.event),
                       decoration: InputDecoration(
-                        labelText: 'Jam Selesai',
+                        labelText: "Tanggal Keluar",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)),
                       ),
-                      onTap: () async {
-                        TimeOfDay time = TimeOfDay.now();
-                        FocusScope.of(context).requestFocus(new FocusNode());
-
-                        TimeOfDay? picked = await showTimePicker(
-                            context: context, initialTime: time);
-                        if (picked != null && picked != time) {
-                          timeCtl2.text =
-                              picked.format(context); // add this line.
-                          setState(() {
-                            time = picked;
-                          });
-                        }
-                      },
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'tidak boleh kosong';
-                        }
+                      dateLabelText: 'Date',
+                      locale: Locale('en'),
+                      onChanged: (val) =>
+                          setState(() => _valueChangedOut = val),
+                      validator: (val) {
+                        setState(() => _valueToValidateOut = val ?? '');
                         return null;
                       },
+                      onSaved: (val) =>
+                          setState(() => _valueSavedOut = val ?? ''),
                     ),
                   ),
                   Container(
@@ -301,46 +395,6 @@ class _halamanMobil extends State<HalamanMobil> {
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      controller: diskon,
-                      decoration: InputDecoration(
-                        labelText: "Diskon",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                      ),
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'D tidak boleh kosong';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      controller: harga,
-                      decoration: InputDecoration(
-                        labelText: "Harga",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                      ),
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return 'Status tidak boleh kosong';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       child: const Text(
                         "Store",
@@ -356,22 +410,19 @@ class _halamanMobil extends State<HalamanMobil> {
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
-                      onPressed: () async {
-                        final double? discount = double.tryParse(diskon.text);
-                        final double? price = double.tryParse(harga.text);
-                        final double? total = (price! * discount!) + price;
-                        await fh.createTransaksi(
+                      onPressed: () {
+                        fh.createTransaksi(
                             code.text,
                             namaPelanggan.text,
                             noHp.text,
                             status.text,
-                            noPlat.text,
                             '',
-                            total,
-                            discount,
+                            noCucian.text,
+                            0,
+                            0,
                             dropdownvalue,
-                            timeCtl.text,
-                            timeCtl2.text,
+                            _controllerIn.text,
+                            _controllerOut.text,
                             namaPegawai1.text,
                             namaPegawai2.text,
                             0,
@@ -381,12 +432,11 @@ class _halamanMobil extends State<HalamanMobil> {
                         namaPelanggan.text = '';
                         noHp.text = '';
                         status.text = '';
-                        noPlat.text = '';
-                        timeCtl.text = '';
-                        timeCtl2.text = '';
+                        noCucian.text = '';
+                        _controllerIn.text = '';
+                        _controllerOut.text = '';
                         namaPegawai1.text = '';
                         namaPegawai2.text = '';
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -400,8 +450,8 @@ class _halamanMobil extends State<HalamanMobil> {
               ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

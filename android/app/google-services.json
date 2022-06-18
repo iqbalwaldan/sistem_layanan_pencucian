@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "667700822897",
+    "project_id": "sistemlayananpencucian",
+    "storage_bucket": "sistemlayananpencucian.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667700822897:android:3da837aceb678510646cd0",
+        "android_client_info": {
+          "package_name": "com.example.sistem_layanan_pencucian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667700822897-slkr9m1rotb913h1j7pl3v8tc7sgia8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sistem_layanan_pencucian",
+            "certificate_hash": "bbb3ba3e5c8d87fc38a05435f3effaa79a8c9d16"
+          }
+        },
+        {
+          "client_id": "667700822897-ugsffsempj1j73ngsl0am0b68l3d3cnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmC1o1omFZz6e-97m_kmsCPOanZyMTSlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667700822897-ugsffsempj1j73ngsl0am0b68l3d3cnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
