@@ -21,24 +21,28 @@ class FirestoreHelper {
       namaPegawai2,
       int? panjang,
       lebar]) async {
-    _transaksi.doc(code).set(
-      {
-        "nama_pelanggan": namaPelanggan,
-        "no_hp": noHp,
-        "no_plat": noPlat,
-        "no_cucian": noCucian,
-        "status": status,
-        "total": total,
-        "diskon": diskon,
-        "layanan": layanan,
-        "pegawai1": namaPegawai1,
-        "pegawai2": namaPegawai2,
-        "waktu_mulai": mulai,
-        "waktu_selesai": selesai,
-        "panjang": panjang,
-        "lebar": lebar,
-      },
-    );
+    try {
+      await _transaksi.doc(code).set(
+        {
+          "nama_pelanggan": namaPelanggan,
+          "no_hp": noHp,
+          "no_plat": noPlat,
+          "no_cucian": noCucian,
+          "status": status,
+          "total": total,
+          "diskon": diskon,
+          "layanan": layanan,
+          "pegawai1": namaPegawai1,
+          "pegawai2": namaPegawai2,
+          "waktu_mulai": mulai,
+          "waktu_selesai": selesai,
+          "panjang": panjang,
+          "lebar": lebar,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> updateTransaksi(

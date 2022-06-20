@@ -129,36 +129,36 @@ class Home extends StatelessWidget {
                             },
                           ),
                         ),
-                        StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1,
-                          child: InkWell(
-                            child: const TaskGroupContainer(
-                              color: Colors.deepOrange,
-                              // isSmall: true,
-                              icon: Icons.money_off_csred_outlined,
-                              // taskCount: 9,
-                              taskGroup: "Laporan Keuangan",
-                            ),
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return laporankeuangan();
-                              }));
-                            },
-                          ),
-                        ),
-                        const StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1,
-                          child: TaskGroupContainer(
-                            color: Colors.indigo,
-                            // isSmall: true,
-                            icon: Icons.auto_graph_sharp,
-                            // taskCount: 9,
-                            taskGroup: "Laporan Kinerja",
-                          ),
-                        ),
+                        // StaggeredGridTile.count(
+                        //   crossAxisCellCount: 1,
+                        //   mainAxisCellCount: 1,
+                        //   child: InkWell(
+                        //     child: const TaskGroupContainer(
+                        //       color: Colors.deepOrange,
+                        //       // isSmall: true,
+                        //       icon: Icons.money_off_csred_outlined,
+                        //       // taskCount: 9,
+                        //       taskGroup: "Laporan Keuangan",
+                        //     ),
+                        //     onTap: () {
+                        //       Navigator.push(context,
+                        //           MaterialPageRoute(builder: (context) {
+                        //         return laporankeuangan();
+                        //       }));
+                        //     },
+                        //   ),
+                        // ),
+                        // const StaggeredGridTile.count(
+                        //   crossAxisCellCount: 1,
+                        //   mainAxisCellCount: 1,
+                        //   child: TaskGroupContainer(
+                        //     color: Colors.indigo,
+                        //     // isSmall: true,
+                        //     icon: Icons.auto_graph_sharp,
+                        //     // taskCount: 9,
+                        //     taskGroup: "Laporan Kinerja",
+                        //   ),
+                        // ),
                       ],
                     ),
                   ]),

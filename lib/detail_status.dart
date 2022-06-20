@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sistem_layanan_pencucian/print_page.dart';
 
 class DetailStatus extends StatefulWidget {
   const DetailStatus({Key? key, required this.docId}) : super(key: key);
@@ -12,6 +13,7 @@ class DetailStatus extends StatefulWidget {
 class _DetailStatusState extends State<DetailStatus> {
   CollectionReference transaksi =
       FirebaseFirestore.instance.collection('transaksi');
+  late List<Map<String, dynamic>> datas;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +50,7 @@ class _DetailStatusState extends State<DetailStatus> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
+            datas = data as List<Map<String, dynamic>>;
             return Stack(
               children: [
                 SizedBox(
@@ -141,7 +144,10 @@ class _DetailStatusState extends State<DetailStatus> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.print),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => PrintPage(data: datas)));
+        },
       ),
     );
   }
