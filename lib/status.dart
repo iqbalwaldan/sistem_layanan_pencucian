@@ -6,6 +6,8 @@ import 'package:sistem_layanan_pencucian/detail_status.dart';
 import 'package:sistem_layanan_pencucian/edit_page/edit_karpet.dart';
 import 'package:sistem_layanan_pencucian/edit_page/edit_kendaraan.dart';
 
+import 'edit_page/edit_motor.dart';
+
 // void main() {
 //   runApp(Status());
 // }
@@ -148,7 +150,7 @@ class _StatusState extends State<Status> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                EditHalamanKendaraan(
+                                                EditHalamanMotor(
                                               docId: docSnap.id,
                                               nama_pelanggan:
                                                   docSnap['nama_pelanggan'],
