@@ -434,8 +434,8 @@ class _halamanKarpet extends State<HalamanKarpet> {
                               _controllerOut.text,
                               namaPegawai1.text,
                               namaPegawai2.text,
-                              0,
-                              0);
+                              int.parse(panjang.text),
+                              int.parse(lebar.text));
 
                           code.text = '';
                           namaPelanggan.text = '';

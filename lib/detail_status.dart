@@ -82,7 +82,7 @@ class _DetailStatusState extends State<DetailStatus> {
                               height: 30,
                             ),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(
@@ -93,8 +93,22 @@ class _DetailStatusState extends State<DetailStatus> {
                                       : Text(
                                           'No. Plat/No Antrian : ${data['no_plat']}'),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  child: data['panjang'] != 0
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                                'Panjang : ${data['panjang']}'),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('Lebar : ${data['lebar']}'),
+                                          ],
+                                        )
+                                      : Container(
+                                          margin: EdgeInsets.only(bottom: 10),
+                                        ),
                                 ),
                                 Text(
                                     'Nama Pelanggan : ${data['nama_pelanggan']}'),
