@@ -419,7 +419,8 @@ class _halamanKarpet extends State<HalamanKarpet> {
                         onPressed: () async {
                           final double? discount = double.tryParse(diskon.text);
                           final double? price = double.tryParse(harga.text);
-                          final double? total = (price! * discount!) + price;
+                          final double? total =
+                              price! - (price * (discount! / 100));
                           await fh.createTransaksi(
                               code.text,
                               namaPelanggan.text,

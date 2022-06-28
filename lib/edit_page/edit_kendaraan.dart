@@ -11,8 +11,8 @@ class EditHalamanKendaraan extends StatefulWidget {
       required this.noHp,
       required this.noPlat,
       required this.status,
-      // required this.total,
-      // required this.diskon,
+      required this.total,
+      required this.diskon,
       required this.layanan,
       required this.namaPegawai1,
       required this.namaPegawai2,
@@ -24,8 +24,8 @@ class EditHalamanKendaraan extends StatefulWidget {
   final String noHp;
   final String noPlat;
   final String status;
-  // final String total;
-  // final String diskon;
+  final double total;
+  final double diskon;
   final String layanan;
   final String namaPegawai1;
   final String namaPegawai2;
@@ -42,12 +42,14 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
   final FocusNode hpFocusNode = FocusNode();
   final FocusNode platFocusNode = FocusNode();
   final FocusNode statusFocusNode = FocusNode();
-  // final FocusNode totalFocusNode = FocusNode();
+  final FocusNode totalFocusNode = FocusNode();
+  final FocusNode diskonFocusNode = FocusNode();
   final FocusNode layananFocusNode = FocusNode();
   final FocusNode pegawai1FocusNode = FocusNode();
   final FocusNode pegawai2FocusNode = FocusNode();
   final FocusNode mulaiFocusNode = FocusNode();
   final FocusNode selesaiFocusNode = FocusNode();
+  final FocusNode codeFocusNode = FocusNode();
 
   late TextEditingController timeCtl;
   late TextEditingController timeCtl2;
@@ -57,13 +59,17 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
   late TextEditingController namaPegawai1;
   late TextEditingController namaPegawai2;
   late TextEditingController status;
-  // final code = TextEditingController();
+  late TextEditingController diskon;
+  late TextEditingController totalController;
+  late TextEditingController code;
 
   FirestoreHelper fh = FirestoreHelper();
   bool _isProcessing = false;
 
   @override
   void initState() {
+    code = TextEditingController(text: widget.docId);
+
     namaPelanggan = TextEditingController(
       text: widget.nama_pelanggan,
     );
@@ -89,7 +95,8 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
     timeCtl2 = TextEditingController(
       text: widget.selesai,
     );
-
+    totalController = TextEditingController(text: widget.total.toString());
+    diskon = TextEditingController(text: widget.diskon.toString());
     super.initState();
   }
 
@@ -171,24 +178,25 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                     }
                   },
                 ),
-                // Container(
-                //   alignment: Alignment.center,
-                //   margin: const EdgeInsets.all(8.0),
-                //   child: TextFormField(
-                //     controller: code,
-                //     decoration: InputDecoration(
-                //       labelText: "Code",
-                //       border: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(5.0)),
-                //     ),
-                //     validator: (value) {
-                //       if (value!.isEmpty) {
-                //         return 'Status tidak boleh kosong';
-                //       }
-                //       return null;
-                //     },
-                //   ),
-                // ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    focusNode: codeFocusNode,
+                    controller: code,
+                    decoration: InputDecoration(
+                      labelText: "Code",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Status tidak boleh kosong';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
                 Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(8.0),
@@ -371,6 +379,48 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                 Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    focusNode: diskonFocusNode,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    controller: diskon,
+                    decoration: InputDecoration(
+                      labelText: "Diskon",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'D tidak boleh kosong';
+                    //   }
+                    //   return null;
+                    // },
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    focusNode: totalFocusNode,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    controller: totalController,
+                    decoration: InputDecoration(
+                      labelText: "Harga",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Status tidak boleh kosong';
+                    //   }
+                    //   return null;
+                    // },
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     child: const Text(
                       "Store",
@@ -387,16 +437,21 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                       ),
                     ),
                     onPressed: () async {
+                      final double? discount = double.tryParse(diskon.text);
+                      final double? price =
+                          double.tryParse(totalController.text);
+                      final double total = price! - (price * (discount!));
                       pelangganFocusNode.unfocus();
                       hpFocusNode.unfocus();
                       platFocusNode.unfocus();
                       statusFocusNode.unfocus();
-                      // final FocusNode totalFocusNode .unfocus();
+                      codeFocusNode.unfocus();
                       layananFocusNode.unfocus();
                       pegawai1FocusNode.unfocus();
                       pegawai2FocusNode.unfocus();
                       mulaiFocusNode.unfocus();
                       selesaiFocusNode.unfocus();
+                      totalFocusNode.unfocus();
 
                       await FirestoreHelper().updateTransaksi(
                           code: widget.docId,
@@ -405,6 +460,8 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                           status: status.text,
                           noPlat: noPlat.text,
                           noCucian: '',
+                          total: total,
+                          diskon: discount,
                           layanan: dropdownvalue,
                           mulai: timeCtl.text,
                           selesai: timeCtl2.text,
@@ -412,7 +469,7 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                           namaPegawai2: namaPegawai2.text,
                           panjang: 0,
                           lebar: 0);
-                      // total: total,
+
                       namaPelanggan.text = '';
                       noHp.text = '';
                       status.text = '';
@@ -421,6 +478,9 @@ class _halamanKendaraan extends State<EditHalamanKendaraan> {
                       timeCtl2.text = '';
                       namaPegawai1.text = '';
                       namaPegawai2.text = '';
+                      code.text = '';
+                      diskon.text = '';
+                      totalController.text = '';
 
                       Navigator.push(
                         context,

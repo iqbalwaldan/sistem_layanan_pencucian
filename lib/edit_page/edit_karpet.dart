@@ -24,8 +24,8 @@ class EditHalamanKarpet extends StatefulWidget {
       required this.noHp,
       required this.noCucian,
       required this.status,
-      // required this.total,
-      // required this.diskon,
+      required this.total,
+      required this.diskon,
       required this.layanan,
       required this.namaPegawai1,
       required this.namaPegawai2,
@@ -39,35 +39,52 @@ class EditHalamanKarpet extends StatefulWidget {
   final String noHp;
   final String noCucian;
   final String status;
-  // final String total;
-  // final String diskon;
+  final double total;
+  final double diskon;
   final String layanan;
   final String namaPegawai1;
   final String namaPegawai2;
   final String mulai;
   final String selesai;
-  final String panjang;
-  final String lebar;
+  final int panjang;
+  final int lebar;
   @override
   _halamanEditKarpet createState() => _halamanEditKarpet();
 }
 
 class _halamanEditKarpet extends State<EditHalamanKarpet> {
+  final FocusNode totalFocusNode = FocusNode();
+  final FocusNode diskonFocusNode = FocusNode();
+  final FocusNode layananFocusNode = FocusNode();
+  final FocusNode codeFocusNode = FocusNode();
+  final FocusNode noCuciFocusNode = FocusNode();
+  final FocusNode panjangFocusNode = FocusNode();
+  final FocusNode lebarFocusNode = FocusNode();
+  final FocusNode pelangganFocusNode = FocusNode();
+  final FocusNode hpFocusNode = FocusNode();
+  final FocusNode pegawai1FocusNode = FocusNode();
+  final FocusNode pegawai2FocusNode = FocusNode();
+  final FocusNode mulaiFocusNode = FocusNode();
+  final FocusNode selesaiFocusNode = FocusNode();
+  final FocusNode statusFocusNode = FocusNode();
+
   // final timeCtl = TextEditingController();
   // final timeCtl2 = TextEditingController();
-  final noCucian = TextEditingController();
-  final panjang = TextEditingController();
-  final lebar = TextEditingController();
-  final namaPelanggan = TextEditingController();
-  final noHp = TextEditingController();
-  final namaPegawai1 = TextEditingController();
-  final namaPegawai2 = TextEditingController();
-  final status = TextEditingController();
-  final code = TextEditingController();
-  var dropdownvalue;
+  late TextEditingController code;
+  late TextEditingController noCucian;
+  late TextEditingController panjang;
+  late TextEditingController lebar;
+  late TextEditingController namaPelanggan;
+  late TextEditingController noHp;
+  late TextEditingController namaPegawai1;
+  late TextEditingController namaPegawai2;
+  late TextEditingController status;
   late TextEditingController _controllerIn;
   late TextEditingController _controllerOut;
+  late TextEditingController totalController;
+  late TextEditingController diskon;
   FirestoreHelper fh = FirestoreHelper();
+  var dropdownvalue;
 
   String _valueChangedIn = '';
   String _valueToValidateIn = '';
@@ -83,8 +100,43 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
     //_initialValue = DateTime.now().toString();
     _controllerIn = TextEditingController(text: DateTime.now().toString());
     _controllerOut = TextEditingController(text: DateTime.now().toString());
-
     _getValue();
+
+    code = TextEditingController(text: widget.docId);
+
+    noCucian = TextEditingController(
+      text: widget.noCucian,
+    );
+
+    panjang = TextEditingController(text: widget.panjang.toString());
+
+    lebar = TextEditingController(text: widget.lebar.toString());
+
+    namaPelanggan = TextEditingController(
+      text: widget.nama_pelanggan,
+    );
+
+    noHp = TextEditingController(
+      text: widget.noHp,
+    );
+    namaPegawai1 = TextEditingController(
+      text: widget.namaPegawai1,
+    );
+    namaPegawai2 = TextEditingController(
+      text: widget.namaPegawai2,
+    );
+
+    _controllerIn = TextEditingController(text: widget.mulai);
+
+    _controllerOut = TextEditingController(text: widget.selesai);
+
+    status = TextEditingController(
+      text: widget.status,
+    );
+
+    diskon = TextEditingController(text: widget.diskon.toString());
+
+    totalController = TextEditingController(text: widget.total.toString());
   }
 
   Future<void> _getValue() async {
@@ -173,6 +225,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: codeFocusNode,
                       controller: code,
                       decoration: InputDecoration(
                         labelText: "Code",
@@ -191,6 +244,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: noCuciFocusNode,
                       controller: noCucian,
                       decoration: InputDecoration(
                         labelText: "No Cucian",
@@ -212,6 +266,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                         Expanded(
                           flex: 5,
                           child: TextFormField(
+                            focusNode: panjangFocusNode,
                             controller: panjang,
                             decoration: InputDecoration(
                               labelText: "Panjang",
@@ -232,6 +287,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                         Expanded(
                           flex: 5,
                           child: TextFormField(
+                            focusNode: lebarFocusNode,
                             controller: lebar,
                             decoration: InputDecoration(
                               labelText: "Lebar",
@@ -253,6 +309,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: pelangganFocusNode,
                       controller: namaPelanggan,
                       decoration: InputDecoration(
                         labelText: "Nama Pelanggan",
@@ -271,6 +328,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: hpFocusNode,
                       controller: noHp,
                       decoration: InputDecoration(
                         labelText: "No Handphone",
@@ -289,6 +347,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: pegawai1FocusNode,
                       controller: namaPegawai1,
                       decoration: InputDecoration(
                         labelText: "Nama Pegawai 1",
@@ -307,6 +366,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: pegawai2FocusNode,
                       controller: namaPegawai2,
                       decoration: InputDecoration(
                         labelText: "Nama Pegawai 2",
@@ -324,6 +384,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                   Container(
                     margin: const EdgeInsets.all(8.0),
                     child: DateTimePicker(
+                      focusNode: mulaiFocusNode,
                       type: DateTimePickerType.date,
                       dateMask: 'dd/MM/yyyy',
                       controller: _controllerIn,
@@ -350,6 +411,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                   Container(
                     margin: const EdgeInsets.all(8.0),
                     child: DateTimePicker(
+                      focusNode: selesaiFocusNode,
                       type: DateTimePickerType.date,
                       dateMask: 'dd/MM/yyyy',
                       controller: _controllerOut,
@@ -378,6 +440,7 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      focusNode: statusFocusNode,
                       controller: status,
                       decoration: InputDecoration(
                         labelText: "Status",
@@ -390,6 +453,48 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                         }
                         return null;
                       },
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      focusNode: diskonFocusNode,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      controller: diskon,
+                      decoration: InputDecoration(
+                        labelText: "Diskon",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'D tidak boleh kosong';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      focusNode: totalFocusNode,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      controller: totalController,
+                      decoration: InputDecoration(
+                        labelText: "Harga",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'Status tidak boleh kosong';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                   ),
                   Container(
@@ -410,23 +515,29 @@ class _halamanEditKarpet extends State<EditHalamanKarpet> {
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
-                      onPressed: () {
-                        fh.createTransaksi(
-                            code.text,
-                            namaPelanggan.text,
-                            noHp.text,
-                            status.text,
-                            '',
-                            noCucian.text,
-                            0,
-                            0,
-                            dropdownvalue,
-                            _controllerIn.text,
-                            _controllerOut.text,
-                            namaPegawai1.text,
-                            namaPegawai2.text,
-                            0,
-                            0);
+                      onPressed: () async {
+                        final double? discount = double.tryParse(diskon.text);
+                        final double? price =
+                            double.tryParse(totalController.text);
+                        final double total = price! - (price * (discount!));
+                        final int panjangKarpet = int.parse(panjang.text);
+                        final int lebarKarpet = int.parse(lebar.text);
+                        await FirestoreHelper().updateTransaksi(
+                            code: widget.docId,
+                            namaPelanggan: namaPelanggan.text,
+                            noHp: noHp.text,
+                            status: status.text,
+                            noPlat: '',
+                            noCucian: noCucian.text,
+                            total: total,
+                            diskon: discount,
+                            layanan: dropdownvalue,
+                            mulai: _controllerIn.text,
+                            selesai: _controllerOut.text,
+                            namaPegawai1: namaPegawai1.text,
+                            namaPegawai2: namaPegawai2.text,
+                            panjang: panjangKarpet,
+                            lebar: lebarKarpet);
 
                         code.text = '';
                         namaPelanggan.text = '';
