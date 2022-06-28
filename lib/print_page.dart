@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PrintPage extends StatefulWidget {
   PrintPage({Key? key, required this.data}) : super(key: key);
-  final List<Map<String, dynamic>> data;
+  final Map<String, dynamic>? data;
   @override
   State<PrintPage> createState() => _PrintPageState();
 }
@@ -76,11 +76,11 @@ class _PrintPageState extends State<PrintPage> {
             linefeed: 1),
       );
 
-      for (var i = 0; i < widget.data.length; i++) {
+      for (var i = 0; i < widget.data!.length; i++) {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['layanan'],
+              content: widget.data![i]['layanan'],
               weight: 2,
               width: 2,
               height: 2,
@@ -91,7 +91,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['no_cucian'],
+              content: widget.data![i]['no_cucian'],
               weight: 2,
               width: 2,
               height: 2,
@@ -101,7 +101,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['no_plat'],
+              content: widget.data![i]['no_plat'],
               weight: 2,
               width: 2,
               height: 2,
@@ -111,7 +111,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['nama_pelanggan'],
+              content: widget.data![i]['nama_pelanggan'],
               weight: 2,
               width: 2,
               height: 2,
@@ -121,7 +121,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['no_hp'],
+              content: widget.data![i]['no_hp'],
               weight: 2,
               width: 2,
               height: 2,
@@ -131,7 +131,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['pegawai1'],
+              content: widget.data![i]['pegawai1'],
               weight: 2,
               width: 2,
               height: 2,
@@ -141,7 +141,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['pegawai2'],
+              content: widget.data![i]['pegawai2'],
               weight: 2,
               width: 2,
               height: 2,
@@ -151,7 +151,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['waktu_mulai'],
+              content: widget.data![i]['waktu_mulai'],
               weight: 2,
               width: 2,
               height: 2,
@@ -161,7 +161,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['waktu_selesai'],
+              content: widget.data![i]['waktu_selesai'],
               weight: 2,
               width: 2,
               height: 2,
@@ -171,7 +171,7 @@ class _PrintPageState extends State<PrintPage> {
         list.add(
           LineText(
               type: LineText.TYPE_TEXT,
-              content: widget.data[i]['diskon'],
+              content: widget.data![i]['diskon'],
               weight: 2,
               width: 2,
               height: 2,
@@ -182,7 +182,7 @@ class _PrintPageState extends State<PrintPage> {
           LineText(
               type: LineText.TYPE_TEXT,
               content:
-                  "${widget.data[i]['total'] - (widget.data[i]['total'] * widget.data[i]['diskon'])}",
+                  "${widget.data![i]['total'] - (widget.data![i]['total'] * widget.data![i]['diskon'])}",
               weight: 2,
               width: 2,
               height: 2,

@@ -13,7 +13,7 @@ class DetailStatus extends StatefulWidget {
 class _DetailStatusState extends State<DetailStatus> {
   CollectionReference transaksi =
       FirebaseFirestore.instance.collection('transaksi');
-  late List<Map<String, dynamic>> datas;
+  Map<String, dynamic>? datas;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +50,7 @@ class _DetailStatusState extends State<DetailStatus> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
-            datas = data as List<Map<String, dynamic>>;
+            datas = data;
             return Stack(
               children: [
                 SizedBox(
